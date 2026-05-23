@@ -1,5 +1,7 @@
+'use client';
+
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { MapPin, Maximize2, BedDouble, Bath, Tag, CreditCard } from 'lucide-react';
 import type { Property } from '../data/properties';
 
@@ -25,6 +27,7 @@ const PropertyPlaceholder = () => (
 );
 
 export default function PropertyCard({ property, index = 0 }: PropertyCardProps) {
+  const coverImage = property.images?.[0] || '';
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -35,8 +38,12 @@ export default function PropertyCard({ property, index = 0 }: PropertyCardProps)
       className="bg-white rounded-2xl overflow-hidden shadow-[0_4px_20px_rgba(3,76,43,0.08)] hover:shadow-[0_20px_60px_rgba(3,76,43,0.16)] transition-shadow duration-300 group"
     >
       {/* Image */}
-      <Link to={`/properties/${property.slug}`} className="relative h-52 overflow-hidden block">
-        <PropertyPlaceholder />
+      <Link href={`/properties/${property.slug}`} className="relative h-52 overflow-hidden block">
+        {coverImage ? (
+          <img src={coverImage} alt={property.title} className="w-full h-full object-cover" />
+        ) : (
+          <PropertyPlaceholder />
+        )}
         {/* Badges */}
         <div className="absolute top-3 right-3 flex flex-col gap-1.5">
           <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${
@@ -62,7 +69,7 @@ export default function PropertyCard({ property, index = 0 }: PropertyCardProps)
 
       {/* Content */}
       <div className="p-5">
-        <Link to={`/properties/${property.slug}`}>
+        <Link href={`/properties/${property.slug}`}>
           <h3 className="font-bold text-base text-primary-dark mb-1.5 line-clamp-1 group-hover:text-primary transition-colors">
             {property.title}
           </h3>
@@ -109,7 +116,7 @@ export default function PropertyCard({ property, index = 0 }: PropertyCardProps)
             </p>
           </div>
           <Link
-            to={`/properties/${property.slug}`}
+            href={`/properties/${property.slug}`}
             className="btn-primary text-sm font-bold px-4 py-2 rounded-xl"
           >
             عرض التفاصيل

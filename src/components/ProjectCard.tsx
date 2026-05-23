@@ -1,5 +1,7 @@
+'use client';
+
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { MapPin, Building2, Calendar, TrendingUp } from 'lucide-react';
 import type { Project } from '../data/properties';
 
@@ -33,6 +35,7 @@ const ProjectPlaceholder = () => (
 );
 
 export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
+  const coverImage = project.images?.[0] || '';
   const statusColor =
     project.deliveryStatus === 'مكتمل' ? 'bg-emerald-500' :
     project.deliveryStatus === 'قيد الإنشاء' ? 'bg-amber-500' : 'bg-blue-500';
@@ -47,8 +50,12 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
       className="bg-white rounded-2xl overflow-hidden shadow-[0_4px_20px_rgba(3,76,43,0.08)] hover:shadow-[0_20px_60px_rgba(3,76,43,0.16)] transition-shadow duration-300 group"
     >
       {/* Image */}
-      <Link to={`/projects/${project.slug}`} className="relative h-52 overflow-hidden block">
-        <ProjectPlaceholder />
+      <Link href={`/projects/${project.slug}`} className="relative h-52 overflow-hidden block">
+        {coverImage ? (
+          <img src={coverImage} alt={project.title} className="w-full h-full object-cover" />
+        ) : (
+          <ProjectPlaceholder />
+        )}
         <div className="absolute top-3 right-3 flex gap-2">
           <span className={`text-xs font-bold px-2.5 py-1 rounded-full text-white ${statusColor}`}>
             {project.deliveryStatus}
@@ -63,7 +70,7 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
 
       {/* Content */}
       <div className="p-5">
-        <Link to={`/projects/${project.slug}`}>
+        <Link href={`/projects/${project.slug}`}>
           <h3 className="font-bold text-base text-primary-dark mb-1.5 group-hover:text-primary transition-colors">
             {project.title}
           </h3>
@@ -101,7 +108,7 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
             </div>
           </div>
           <Link
-            to={`/projects/${project.slug}`}
+            href={`/projects/${project.slug}`}
             className="btn-gold text-sm font-bold px-4 py-2 rounded-xl"
           >
             تفاصيل المشروع

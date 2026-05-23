@@ -1,3 +1,10 @@
+export interface ContentFile {
+  url: string;
+  name: string;
+  size?: number;
+  type?: string;
+}
+
 export interface Property {
   id: string;
   slug: string;
@@ -15,6 +22,7 @@ export interface Property {
   financeAvailable?: boolean;
   features: string[];
   images: string[];
+  files?: ContentFile[];
   description: string;
   addedDate: string;
 }
@@ -34,6 +42,7 @@ export interface Project {
   paymentPlan: string;
   developer: string;
   images: string[];
+  files?: ContentFile[];
   availableUnits: UnitType[];
 }
 
@@ -43,6 +52,17 @@ export interface UnitType {
   price: number;
   floor: string;
   status: 'متاح' | 'محجوز' | 'مباع';
+}
+
+export interface BlogPost {
+  id: string;
+  slug: string;
+  title: string;
+  excerpt: string;
+  category: string;
+  date: string;
+  readTime: string;
+  image: string;
 }
 
 export const sampleProperties: Property[] = [
@@ -231,7 +251,7 @@ export const sampleProjects: Project[] = [
   },
 ];
 
-export const blogPosts = [
+export const blogPosts: BlogPost[] = [
   {
     id: '1',
     slug: 'how-to-buy-property-in-saudi-arabia',

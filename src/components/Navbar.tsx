@@ -1,5 +1,8 @@
+'use client';
+
 import { useState, useEffect, useRef } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Phone, LogIn, ChevronDown, Building2, ShieldCheck } from 'lucide-react';
 
@@ -21,10 +24,10 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
-  const location = useLocation();
+  const pathname = usePathname();
   const loginRef = useRef<HTMLDivElement>(null);
 
-  const isHome = location.pathname === '/';
+  const isHome = pathname === '/';
   const isSolid = !isHome || scrolled;
 
   useEffect(() => {
@@ -36,7 +39,7 @@ export default function Navbar() {
   useEffect(() => {
     setIsOpen(false);
     setLoginOpen(false);
-  }, [location]);
+  }, [pathname]);
 
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
@@ -57,7 +60,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-3 group">
+          <Link href="/" className="flex items-center gap-3 group">
             <div className="w-11 h-11 rounded-xl overflow-hidden border border-gold/30 flex items-center justify-center bg-white shadow-md transition-transform group-hover:scale-105 duration-300">
               <img src="/logo.jpeg" alt="شعار لقمان للتسويق العقاري" className="w-full h-full object-cover" />
             </div>
@@ -76,9 +79,9 @@ export default function Navbar() {
             {navLinks.map((link) => (
               <Link
                 key={link.href}
-                to={link.href}
+                href={link.href}
                 className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 ${
-                  location.pathname === link.href
+                  pathname === link.href
                     ? isSolid ? 'bg-primary text-white' : 'bg-white/20 text-white'
                     : isSolid
                     ? 'text-gray-700 hover:text-primary hover:bg-primary/5'
@@ -191,9 +194,9 @@ export default function Navbar() {
                   transition={{ delay: i * 0.05 }}
                 >
                   <Link
-                    to={link.href}
+                    href={link.href}
                     className={`block px-4 py-3 rounded-xl text-sm font-semibold transition-all ${
-                      location.pathname === link.href
+                      pathname === link.href
                         ? 'bg-primary text-white'
                         : 'text-gray-700 hover:bg-primary/5 hover:text-primary'
                     }`}

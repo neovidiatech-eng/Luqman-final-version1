@@ -1,4 +1,6 @@
-import { Link } from 'react-router-dom';
+'use client';
+
+import Link from 'next/link';
 import { MapPin, Phone, Mail, Clock, Instagram, Twitter, Youtube } from 'lucide-react';
 
 export default function Footer() {
@@ -42,7 +44,7 @@ export default function Footer() {
               ].map((link) => (
                 <li key={link.href}>
                   <Link
-                    to={link.href}
+                    href={link.href}
                     className="text-white/70 hover:text-gold text-sm transition-colors duration-200 flex items-center gap-2"
                   >
                     <span className="text-gold/50">←</span>
@@ -67,7 +69,7 @@ export default function Footer() {
               ].map((link) => (
                 <li key={link.label}>
                   <Link
-                    to={link.href}
+                    href={link.href}
                     className="text-white/70 hover:text-gold text-sm transition-colors duration-200 flex items-center gap-2"
                   >
                     <span className="text-gold/50">←</span>

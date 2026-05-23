@@ -1,3 +1,5 @@
+'use client';
+
 import { ChevronRight, ChevronLeft } from 'lucide-react';
 
 interface PaginationProps {

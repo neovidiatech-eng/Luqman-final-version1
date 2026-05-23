@@ -1,5 +1,7 @@
+'use client';
+
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { Calendar, Tag, ArrowLeft } from 'lucide-react';
 
 interface BlogCardProps {
@@ -48,7 +50,7 @@ export default function BlogCard({ post, index = 0 }: BlogCardProps) {
       whileHover={{ y: -5 }}
       className="bg-white rounded-2xl overflow-hidden shadow-[0_4px_20px_rgba(3,76,43,0.08)] hover:shadow-[0_20px_60px_rgba(3,76,43,0.14)] transition-shadow duration-300 group flex flex-col"
     >
-      <Link to={`/blog/${post.slug}`} className="h-44 overflow-hidden block relative bg-gray-100">
+      <Link href={`/blog/${post.slug}`} className="h-44 overflow-hidden block relative bg-gray-100">
         {post.image ? (
           <img
             src={post.image}
@@ -74,7 +76,7 @@ export default function BlogCard({ post, index = 0 }: BlogCardProps) {
           </span>
         </div>
 
-        <Link to={`/blog/${post.slug}`}>
+        <Link href={`/blog/${post.slug}`}>
           <h3 className="font-bold text-base text-primary-dark mb-2 line-clamp-2 group-hover:text-primary transition-colors leading-snug flex-1">
             {post.title}
           </h3>
@@ -91,7 +93,7 @@ export default function BlogCard({ post, index = 0 }: BlogCardProps) {
             </span>
           </div>
           <Link
-            to={`/blog/${post.slug}`}
+            href={`/blog/${post.slug}`}
             className="text-primary font-semibold text-xs flex items-center gap-1 hover:gap-2 transition-all duration-200"
           >
             اقرأ المقالة
