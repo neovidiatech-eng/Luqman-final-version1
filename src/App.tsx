@@ -12,6 +12,7 @@ import AboutPage from './pages/AboutPage';
 import BlogPage from './pages/BlogPage';
 import BlogArticle1Page from './pages/BlogArticle1Page';
 import BlogArticle2Page from './pages/BlogArticle2Page';
+import BlogArticle3Page from './pages/BlogArticle3Page';
 import ContactPage from './pages/ContactPage';
 
 function ScrollToTop() {
@@ -40,6 +41,7 @@ function AppLayout() {
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/blog/how-to-buy-property-in-saudi-arabia" element={<BlogArticle1Page />} />
           <Route path="/blog/common-mistakes-first-time-buyers" element={<BlogArticle2Page />} />
+          <Route path="/blog/how-to-choose-right-property" element={<BlogArticle3Page />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="*" element={
             <div className="min-h-screen pt-20 flex items-center justify-center text-center">

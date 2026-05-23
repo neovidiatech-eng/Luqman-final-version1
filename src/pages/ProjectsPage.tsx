@@ -3,7 +3,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { MessageCircle, SlidersHorizontal, X, RotateCcw, ChevronDown } from 'lucide-react';
 import SectionHeader from '../components/SectionHeader';
 import ProjectCard from '../components/ProjectCard';
+import Pagination from '../components/Pagination';
 import { sampleProjects } from '../data/properties';
+
+const ITEMS_PER_PAGE = 6;
 
 const cities = ['كل المدن', 'الرياض', 'جدة', 'مكة', 'الطائف', 'المدينة', 'الدمام'];
 const statuses = ['الكل', 'قيد الإنشاء', 'مكتمل', 'قيد التطوير'];
@@ -14,6 +17,7 @@ export default function ProjectsPage() {
   const [status, setStatus] = useState('الكل');
   const [type, setType] = useState('الكل');
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     document.body.style.overflow = drawerOpen ? 'hidden' : '';
@@ -24,6 +28,7 @@ export default function ProjectsPage() {
   const handleReset = () => { setCity('كل المدن'); setStatus('الكل'); setType('الكل'); };
 
   const filtered = useMemo(() => {
+    setCurrentPage(1);
     return sampleProjects.filter((p) => {
       if (city !== 'كل المدن' && !p.city.includes(city)) return false;
       if (status !== 'الكل' && p.deliveryStatus !== status) return false;
@@ -31,6 +36,9 @@ export default function ProjectsPage() {
       return true;
     });
   }, [city, status, type]);
+
+  const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
+  const paginatedProjects = filtered.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
 
   return (
     <div className="min-h-screen pt-20">
@@ -214,11 +222,18 @@ export default function ProjectsPage() {
           </p>
 
           {filtered.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filtered.map((p, i) => (
-                <ProjectCard key={p.id} project={p} index={i} />
-              ))}
-            </div>
+            <>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {paginatedProjects.map((p, i) => (
+                  <ProjectCard key={p.id} project={p} index={i} />
+                ))}
+              </div>
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={setCurrentPage}
+              />
+            </>
           ) : (
             <div className="text-center py-20">
               <p className="text-xl font-bold text-primary-dark mb-4">لا توجد مشاريع تطابق الفلاتر</p>

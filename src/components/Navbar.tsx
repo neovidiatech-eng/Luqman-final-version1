@@ -58,13 +58,8 @@ export default function Navbar() {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-xl gradient-primary flex items-center justify-center shadow-lg">
-              <svg viewBox="0 0 40 40" fill="none" className="w-6 h-6">
-                <path d="M20 5L8 16v16h8v-8h8v8h8V16L20 5z" fill="white" fillOpacity="0.9"/>
-                <path d="M15 28v-6h10v6" fill="white" fillOpacity="0.6"/>
-                <circle cx="28" cy="10" r="3" fill="#C19F42"/>
-                <path d="M24 8c0-2.2 1.8-4 4-4s4 1.8 4 4" stroke="#C19F42" strokeWidth="1.5" fill="none"/>
-              </svg>
+            <div className="w-11 h-11 rounded-xl overflow-hidden border border-gold/30 flex items-center justify-center bg-white shadow-md transition-transform group-hover:scale-105 duration-300">
+              <img src="/logo.jpeg" alt="شعار لقمان للتسويق العقاري" className="w-full h-full object-cover" />
             </div>
             <div>
               <p className={`font-bold text-base leading-tight transition-colors ${isSolid ? 'text-primary' : 'text-white'}`}>

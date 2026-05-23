@@ -3,7 +3,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Search, SlidersHorizontal, RotateCcw, X, MessageCircle, ChevronDown } from 'lucide-react';
 import SectionHeader from '../components/SectionHeader';
 import PropertyCard from '../components/PropertyCard';
+import Pagination from '../components/Pagination';
 import { sampleProperties } from '../data/properties';
+
+const ITEMS_PER_PAGE = 6;
 
 const propertyTypes = ['الكل', 'شقق سكنية', 'فلل', 'أراضي', 'عقارات تجارية', 'مجمعات سكنية', 'مشاريع قيد الإنشاء', 'وحدات سياحية', 'عمارات'];
 const cities = ['الكل', 'الرياض', 'جدة', 'مكة المكرمة', 'الطائف', 'المدينة المنورة', 'الدمام', 'الخبر', 'الجبيل', 'أبها', 'تبوك'];
@@ -45,6 +48,7 @@ export default function PropertiesPage() {
   const [filters, setFilters] = useState<Filters>(defaultFilters);
   const [showFilters, setShowFilters] = useState(false);
   const [searched, setSearched] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const filtered = useMemo(() => {
     let result = [...sampleProperties];
@@ -69,8 +73,12 @@ export default function PropertiesPage() {
     if (filters.sort === 'price_desc') result.sort((a, b) => b.price - a.price);
     else if (filters.sort === 'price_asc') result.sort((a, b) => a.price - b.price);
 
+    setCurrentPage(1); // Reset to page 1 when filters change
     return result;
   }, [filters]);
+
+  const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
+  const paginatedProperties = filtered.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
 
   const [drawerOpen, setDrawerOpen] = useState(false);
 
@@ -493,11 +501,18 @@ export default function PropertiesPage() {
           </div>
 
           {filtered.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filtered.map((p, i) => (
-                <PropertyCard key={p.id} property={p} index={i} />
-              ))}
-            </div>
+            <>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {paginatedProperties.map((p, i) => (
+                  <PropertyCard key={p.id} property={p} index={i} />
+                ))}
+              </div>
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={setCurrentPage}
+              />
+            </>
           ) : (
             <motion.div
               initial={{ opacity: 0 }}

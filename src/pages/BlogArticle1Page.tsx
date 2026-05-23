@@ -137,6 +137,20 @@ export default function BlogArticle1Page() {
               </div>
             </motion.div>
 
+            {/* Featured Image */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.4 }}
+              className="w-full h-[250px] sm:h-[400px] rounded-3xl overflow-hidden border border-gold/10 shadow-lg mb-8 bg-cream flex items-center justify-center relative"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80"
+                alt="شراء عقارك في السعودية لأول مرة"
+                className="w-full h-full object-cover"
+              />
+            </motion.div>
+
             {/* Intro */}
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }}>
               <div className="bg-cream rounded-2xl p-6 border border-[var(--color-border)] mb-8">

@@ -3,14 +3,23 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, Check } from 'lucide-react';
 import SectionHeader from '../components/SectionHeader';
 import BlogCard from '../components/BlogCard';
+import Pagination from '../components/Pagination';
 import { blogPosts } from '../data/properties';
+
+const ITEMS_PER_PAGE = 6;
 
 const categories = ['الكل', 'شراء العقار', 'التمويل والتقسيط', 'الاستثمار العقاري', 'نصائح قانونية', 'أخبار السوق السعودي'];
 
 export default function BlogPage() {
   const [category, setCategory] = useState('الكل');
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
   const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const handleCategoryChange = (cat: string) => {
+    setCategory(cat);
+    setCurrentPage(1);
+  };
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -23,6 +32,8 @@ export default function BlogPage() {
   }, []);
 
   const filtered = blogPosts.filter((p) => category === 'الكل' || p.category === category);
+  const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
+  const paginatedPosts = filtered.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
 
   return (
     <div className="min-h-screen pt-20">
@@ -56,7 +67,7 @@ export default function BlogPage() {
             {categories.map((cat) => (
               <button
                 key={cat}
-                onClick={() => setCategory(cat)}
+                onClick={() => handleCategoryChange(cat)}
                 className={`text-sm font-semibold px-4 py-2 rounded-xl transition-all ${
                   category === cat
                     ? 'bg-primary text-white shadow-sm'
@@ -92,7 +103,7 @@ export default function BlogPage() {
                   {categories.map((cat) => (
                     <button
                       key={cat}
-                      onClick={() => { setCategory(cat); setDropdownOpen(false); }}
+                      onClick={() => { handleCategoryChange(cat); setDropdownOpen(false); }}
                       className={`w-full flex items-center justify-between px-4 py-3 text-sm font-semibold transition-colors ${
                         category === cat
                           ? 'bg-primary/5 text-primary'
@@ -122,11 +133,18 @@ export default function BlogPage() {
           </div>
 
           {filtered.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filtered.map((post, i) => (
-                <BlogCard key={post.id} post={post} index={i} />
-              ))}
-            </div>
+            <>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {paginatedPosts.map((post, i) => (
+                  <BlogCard key={post.id} post={post} index={i} />
+                ))}
+              </div>
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={setCurrentPage}
+              />
+            </>
           ) : (
             <div className="text-center py-20">
               <p className="text-xl font-bold text-primary-dark mb-4">لا توجد مقالات في هذا التصنيف</p>

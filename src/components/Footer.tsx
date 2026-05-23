@@ -9,11 +9,8 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-1">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center">
-                <svg viewBox="0 0 40 40" fill="none" className="w-6 h-6">
-                  <path d="M20 5L8 16v16h8v-8h8v8h8V16L20 5z" fill="white" fillOpacity="0.9"/>
-                  <circle cx="28" cy="10" r="3" fill="#C19F42"/>
-                </svg>
+              <div className="w-11 h-11 rounded-xl overflow-hidden border border-gold/30 flex items-center justify-center bg-white shadow-md">
+                <img src="/logo.jpeg" alt="شعار لقمان للتسويق العقاري" className="w-full h-full object-cover" />
               </div>
               <div>
                 <p className="font-bold text-base text-white">لقمان</p>

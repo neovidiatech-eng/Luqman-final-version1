@@ -10,6 +10,7 @@ interface BlogCardProps {
     category: string;
     date: string;
     readTime: string;
+    image?: string;
   };
   index?: number;
 }
@@ -47,8 +48,22 @@ export default function BlogCard({ post, index = 0 }: BlogCardProps) {
       whileHover={{ y: -5 }}
       className="bg-white rounded-2xl overflow-hidden shadow-[0_4px_20px_rgba(3,76,43,0.08)] hover:shadow-[0_20px_60px_rgba(3,76,43,0.14)] transition-shadow duration-300 group flex flex-col"
     >
-      <Link to={`/blog/${post.slug}`} className="h-44 overflow-hidden block">
-        <BlogIllustration category={post.category} />
+      <Link to={`/blog/${post.slug}`} className="h-44 overflow-hidden block relative bg-gray-100">
+        {post.image ? (
+          <img
+            src={post.image}
+            alt={post.title}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            onError={(e) => {
+              (e.currentTarget as HTMLImageElement).style.display = 'none';
+              const sib = e.currentTarget.nextElementSibling;
+              if (sib) sib.removeAttribute('style');
+            }}
+          />
+        ) : null}
+        <div style={post.image ? { display: 'none' } : undefined} className="w-full h-full">
+          <BlogIllustration category={post.category} />
+        </div>
       </Link>
 
       <div className="p-5 flex flex-col flex-1">

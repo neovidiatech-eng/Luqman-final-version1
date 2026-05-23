@@ -240,6 +240,7 @@ export const blogPosts = [
     category: 'شراء العقار',
     date: '15 يناير 2025',
     readTime: '8 دقائق',
+    image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80',
   },
   {
     id: '2',
@@ -249,6 +250,7 @@ export const blogPosts = [
     category: 'نصائح قانونية',
     date: '20 يناير 2025',
     readTime: '6 دقائق',
+    image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&q=80',
   },
   {
     id: '3',
@@ -258,5 +260,6 @@ export const blogPosts = [
     category: 'شراء العقار',
     date: '25 يناير 2025',
     readTime: '5 دقائق',
+    image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80',
   },
 ];

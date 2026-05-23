@@ -110,6 +110,20 @@ export default function BlogArticle2Page() {
               </div>
             </motion.div>
 
+            {/* Featured Image */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.4 }}
+              className="w-full h-[250px] sm:h-[400px] rounded-3xl overflow-hidden border border-gold/10 shadow-lg mb-8 bg-cream flex items-center justify-center relative"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&q=80"
+                alt="أخطاء شائعة عند شراء أول عقار"
+                className="w-full h-full object-cover"
+              />
+            </motion.div>
+
             {/* Intro */}
             <div className="bg-amber-50 border border-amber-100 rounded-2xl p-6 mb-8">
               <p className="text-gray-700 leading-relaxed text-base">
